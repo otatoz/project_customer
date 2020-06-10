@@ -9,7 +9,8 @@
         <div> <strong>名称：</strong> {{data.name}}</div>
         <div> <strong>价格：</strong> {{data.price}}</div>
         <div> <strong>描述：</strong> {{data.description}}</div>
-        <div> <van-stepper v-model="data.number" :min="0" @change="numberChangeHandler(data)"/> </div>
+        <!-- 由于加上了v-model，所以步进器的默认值就不生效了，所以需要手动设置 -->
+        <div> <van-stepper v-model="data.number" :default-value='0' :min="0" @change="numberChangeHandler(data)"/> </div>
       </van-col>
     </van-row>
   </div>
@@ -33,8 +34,7 @@ export default {
         number:val.number
       }
       console.log(orderLine);
-      this.addShopCar(orderLine);
-      
+      // this.addShopCar(orderLine);
     }
   }
 }
@@ -44,7 +44,6 @@ export default {
   margin:.5em 1em;
   padding: .5em;
   border-radius: 5px;
-  height: 80px;
   border: 1px dotted #ccc;
 }
 

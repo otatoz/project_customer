@@ -49,6 +49,9 @@ const routes = [
     },{
       path: 'user',
       component: User,
+    },{
+      path: 'product',
+      component: () => import('@/views/manager/product/Product'),
     }]
   },
   {

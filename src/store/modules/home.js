@@ -4,7 +4,8 @@ export default {
   namespaced:true,
   state: {
     allProduct:[],
-    allCategory:[]
+    allCategory:[],
+    product:[]
   },
   getters:{
     //   筛选出所有产品中的图片
@@ -22,8 +23,16 @@ export default {
     refreshAllCategory(state,allCategory){
         state.allCategory = allCategory
     },
+    refreshProduct(state,product){
+        state.product = product
+    }
   },
   actions: {
+    // 根据栏目id查询产品
+    async findProductById({commit},id){
+        let res = await get('/product/findByCategoryId',{id})
+        commit('refreshProduct',res.data)
+    },
     // 查询所有栏目
     async findAllCategory({commit}){
         let res = await get('/category/findAll')
