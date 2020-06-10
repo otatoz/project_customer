@@ -55,6 +55,10 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },{
+    path:'/register',
+    // 懒加载
+    component:() => import('@/views/Register')
   }
 ]
 

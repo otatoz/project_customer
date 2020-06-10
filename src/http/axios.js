@@ -39,7 +39,7 @@ export function get (url, params) {
 }
 
 /**
- * 提交post请求 发送的数据为查询字符串，key=val&key=val
+ * 提交post请求 发送的数据为查询字符串，key=val&key=val  --  分页查询
 */
 export function post(url,data){
   return axios({
@@ -55,7 +55,7 @@ export function post(url,data){
 }
 
 /**
- * 提交post请求 ,查询字符串，对象中嵌套数组的格式
+ * 提交post请求 ,查询字符串，对象中嵌套数组的格式 -- 保存订单
 */
 export function post_obj_array(url,data){
   return axios({
@@ -71,7 +71,7 @@ export function post_obj_array(url,data){
 }
 
 /**
- * 提交post请求 发送的数据为查询字符串，当参数为数组的时候适用该方法
+ * 提交post请求 发送的数据为查询字符串，当参数为数组的时候适用该方法  --  批量删除
  * ids=1&ids=2
 */
 export function post_array(url,data){
@@ -87,7 +87,7 @@ export function post_array(url,data){
   })
 }
 /**
- * 提交post请求 发送的数据为json字符串
+ * 提交post请求 发送的数据为json字符串  --  登录
 */
 export function post_json(url,data){
   return axios({

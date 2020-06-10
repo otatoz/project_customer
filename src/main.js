@@ -6,6 +6,10 @@ import './plugins/vant.js'
 import moment from 'moment'
 import './common.css'
 
+import { Lazyload } from 'vant';
+
+Vue.use(Lazyload);
+
 // 全局注册自定义组件
 import FullLayout from './components/FullLayout'
 import OrderItem from './components/OrderItem'
