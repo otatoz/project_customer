@@ -12,6 +12,8 @@ import home from './modules/home'
 import shopcar from './modules/shopcar'
 // 导入地址
 import address from './modules/address'
+// 导入订单
+import order from './modules/order'
 
 export default new Vuex.Store({
   modules:{
@@ -19,6 +21,7 @@ export default new Vuex.Store({
     register,
     home,
     shopcar,
-    address
+    address,
+    order
   }
 })

@@ -21,7 +21,14 @@
                     </van-col>
                     <van-col span="20">
                         <div>订单详情</div>
-                        <div>订单详情</div>
+                        <div v-for='item in orderLine.values()' :key='item.id'>
+                            <van-row>
+                                <van-col span="16">{{item.productName}}</van-col>
+                                <van-col span="4">x {{item.number}}</van-col>
+                                <van-col span="4">￥ {{item.price}}</van-col>
+                            </van-row>
+                        </div>
+                        <div style='text-align:right;padding:0 1.5em'>总额：￥ {{total}}</div>
                     </van-col>
                 </van-row>
 
@@ -31,10 +38,23 @@
                     </van-col>
                     <van-col span="18">
                         <div>服务时间</div>
-                        <div>服务时间</div>
+                        <div>
+                            {{currentTime}}
+                            <van-popup v-model="show" position="bottom" :style="{ height: '30%' }">
+                                <van-datetime-picker
+                                    v-model="currentTime"
+                                    type="time"
+                                    @confirm='closeModel'
+                                    title="选择时间"
+                                    :min-hour="10"
+                                    :max-hour="20"
+                                />
+                            </van-popup>
+                        </div>
                     </van-col>
                     <van-col span="2">
-                        <van-icon size='26' class-prefix="iconfont icon-youjiantou" name="extra" />
+                        <!-- 将打开模态框的事件绑定在右箭头上,否则模态框无法关闭 -->
+                        <van-icon @click="pickTimeHandler" size='26' class-prefix="iconfont icon-youjiantou" name="extra" />
                     </van-col>
                 </van-row>
 
@@ -50,17 +70,29 @@
                         <van-icon size='26' class-prefix="iconfont icon-youjiantou" name="extra" />
                     </van-col>
                 </van-row>
+
+                <van-button type="primary" block @click='saveOrderHandler'>确认支付</van-button>
+
             </div>
         </briup-fulllayout>
     </div>
 </template>
 
 <script>
-import {mapState,mapActions} from 'vuex'
+import {mapState,mapActions,mapGetters} from 'vuex'
+import {Toast} from 'vant'
 export default {
+    data(){
+        return {
+            show:false,
+            currentTime:''
+        }
+    },
     computed:{
         ...mapState('user',['info']),
         ...mapState('address',['addresses']),
+        ...mapState('shopcar',['orderLine']),
+        ...mapGetters('shopcar',['total']),
     },
     created(){
         this.findAddressById(this.info.id)
@@ -80,12 +112,45 @@ export default {
     },
     methods:{
         ...mapActions('address',['findAddressById']),
+        ...mapActions('order',['saveOrder']),
+        // 保存订单
+        saveOrderHandler(){
+            if(JSON.stringify(this.$route.query) !== '{}'){
+                // 从地址列表页面选择完地址后,从浏览器地址栏上获取地址id
+                var obj = {
+                    addressId:JSON.parse(this.$route.query.address).id,
+                    customerId:this.info.id,
+                    orderLines:Array.from(this.orderLine.values())
+                }
+            } else {
+                // 从产品页面进来,选择默认第一个地址的id
+                var obj = {
+                    addressId:this.addresses[0].id,
+                    customerId:this.info.id,
+                    orderLines:Array.from(this.orderLine.values())
+                }
+            }
+            this.saveOrder(obj).then((res)=>{
+                Toast(res.statusText)
+                this.$router.push({
+                    path:'/manager/order'
+                })
+            })
+        },
         // 跳转至地址列表页面
         pickAddressHandler(){
             this.$router.push({
                 path:'/manager/address'
             })
-        }
+        },
+        // 时间选择模态框
+        pickTimeHandler(){
+            this.show = true;
+        },
+        // 时间选择完成
+        closeModel(){
+            this.show = false
+        },
     }
 }
 </script>
