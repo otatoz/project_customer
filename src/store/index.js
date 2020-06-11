@@ -8,11 +8,17 @@ import user from './modules/user'
 import register from './modules/register'
 // 导入首页
 import home from './modules/home'
+// 导入购物车
+import shopcar from './modules/shopcar'
+// 导入地址
+import address from './modules/address'
 
 export default new Vuex.Store({
   modules:{
     user,
     register,
-    home
+    home,
+    shopcar,
+    address
   }
 })

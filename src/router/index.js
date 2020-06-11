@@ -52,6 +52,12 @@ const routes = [
     },{
       path: 'product',
       component: () => import('@/views/manager/product/Product'),
+    },{
+      path: 'order_confirm',
+      component: () => import('@/views/manager/order/OrderConfirm'),
+    },{
+      path: 'address',
+      component: () => import('@/views/manager/address/Address'),
     }]
   },
   {

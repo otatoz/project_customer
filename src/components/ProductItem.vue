@@ -26,15 +26,17 @@ export default {
   },
   methods:{
     ...mapMutations('shopcar',['addShopCar']),
+    // 步进器改变时触发
     numberChangeHandler(val){
+      // 参数封装
       let orderLine = {
         productId:val.id,
         productName:val.name,
         price:val.price,
         number:val.number
       }
-      console.log(orderLine);
-      // this.addShopCar(orderLine);
+      // 调用购物车方法
+      this.addShopCar(orderLine);
     }
   }
 }

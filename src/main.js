@@ -6,6 +6,9 @@ import './plugins/vant.js'
 import moment from 'moment'
 import './common.css'
 
+// 导入第三方图标库
+import './assets/iconfont/icon.css'
+
 import { Lazyload } from 'vant';
 
 Vue.use(Lazyload);
