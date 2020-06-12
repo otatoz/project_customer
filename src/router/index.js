@@ -58,6 +58,9 @@ const routes = [
     },{
       path: 'address',
       component: () => import('@/views/manager/address/Address'),
+    },{
+      path: 'address_add',
+      component: () => import('@/views/manager/address/Add'),
     }]
   },
   {
